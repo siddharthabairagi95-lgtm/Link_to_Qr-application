@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | QR Generator</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            background:
+                radial-gradient(circle at top left,#38bdf8,transparent 30%),
+                radial-gradient(circle at bottom right,#2563eb,transparent 30%),
+                linear-gradient(135deg,#020617,#0f172a);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:20px;
+        }
+
+        .container{
+            width:100%;
+            max-width:1000px;
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:40px;
+            align-items:center;
+        }
+
+        .hero{
+            color:white;
+        }
+
+        .hero-badge{
+            display:inline-block;
+            padding:10px 18px;
+            border-radius:30px;
+            background:rgba(255,255,255,.15);
+            margin-bottom:20px;
+        }
+
+        .hero h1{
+            font-size:50px;
+            margin-bottom:20px;
+            line-height:1.1;
+        }
+
+        .hero p{
+            color:#cbd5e1;
+            font-size:18px;
+            line-height:1.7;
+        }
+
+        .login-card{
+            background:rgba(255,255,255,.97);
+            padding:40px;
+            border-radius:28px;
+            box-shadow:0 25px 80px rgba(0,0,0,.35);
+        }
+
+        .logo{
+            width:80px;
+            height:80px;
+            border-radius:24px;
+            background:linear-gradient(135deg,#0ea5e9,#2563eb);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:36px;
+            color:white;
+            margin:0 auto 20px;
+        }
+
+        h2{
+            text-align:center;
+            color:#0f172a;
+            margin-bottom:8px;
+        }
+
+        .subtitle{
+            text-align:center;
+            color:#64748b;
+            margin-bottom:30px;
+        }
+
+        label{
+            display:block;
+            margin-bottom:8px;
+            font-weight:700;
+            color:#334155;
+        }
+
+        input{
+            width:100%;
+            padding:15px;
+            border:1px solid #cbd5e1;
+            border-radius:14px;
+            font-size:15px;
+            margin-bottom:18px;
+            outline:none;
+            transition:.3s;
+        }
+
+        input:focus{
+            border-color:#0ea5e9;
+            box-shadow:0 0 0 4px rgba(14,165,233,.15);
+        }
+
+        .password-wrapper{
+            position:relative;
+        }
+
+        .toggle-password{
+            position:absolute;
+            right:15px;
+            top:16px;
+            cursor:pointer;
+            color:#64748b;
+            font-size:14px;
+            font-weight:600;
+        }
+
+        .login-btn{
+            width:100%;
+            border:none;
+            cursor:pointer;
+            padding:15px;
+            border-radius:14px;
+            background:linear-gradient(135deg,#0ea5e9,#2563eb);
+            color:white;
+            font-size:16px;
+            font-weight:700;
+            transition:.3s;
+        }
+
+        .login-btn:hover{
+            transform:translateY(-2px);
+            box-shadow:0 12px 30px rgba(14,165,233,.35);
+        }
+
+        .error{
+            background:#fee2e2;
+            color:#991b1b;
+            padding:12px;
+            border-radius:12px;
+            text-align:center;
+            margin-bottom:18px;
+            font-weight:600;
+        }
+
+        .signup-link{
+            margin-top:25px;
+            text-align:center;
+            color:#64748b;
+        }
+
+        .signup-link a{
+            text-decoration:none;
+            color:#0ea5e9;
+            font-weight:700;
+        }
+
+        @media(max-width:900px){
+
+            .container{
+                grid-template-columns:1fr;
+            }
+
+            .hero{
+                text-align:center;
+            }
+
+            .hero h1{
+                font-size:38px;
+            }
+        }
+
+        @media(max-width:500px){
+
+            .login-card{
+                padding:28px;
+            }
+
+            .hero h1{
+                font-size:30px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="hero">
+
+        <div class="hero-badge">
+            🔐 Secure Login
+        </div>
+
+        <h1>
+            Welcome Back
+        </h1>
+
+        <p>
+            Login to access the professional Link to QR Generator platform.
+            Create beautiful QR codes instantly and download them in seconds.
+        </p>
+
+    </div>
+
+    <div class="login-card">
+
+        <div class="logo">
+            🔑
+        </div>
+
+        <h2>Sign In</h2>
+
+        <div class="subtitle">
+            Access your account
+        </div>
+
+        {% if error %}
+            <div class="error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <form method="POST" action="/login">
+
+            <label>Username</label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter username"
+                required
+            >
+
+            <label>Password</label>
+
+            <div class="password-wrapper">
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter password"
+                    required
+                >
+
+                <span
+                    class="toggle-password"
+                    onclick="togglePassword()"
+                >
+                    Show
+                </span>
+
+            </div>
+
+            <button
+                type="submit"
+                class="login-btn"
+            >
+                Login
+            </button>
+
+        </form>
+
+        <div class="signup-link">
+
+            Don't have an account?
+
+            <a href="/signup">
+                Sign Up
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function togglePassword() {
+
+    const password =
+        document.getElementById("password");
+
+    const toggle =
+        document.querySelector(".toggle-password");
+
+    if(password.type === "password") {
+
+        password.type = "text";
+
+        toggle.innerHTML = "Hide";
+
+    } else {
+
+        password.type = "password";
+
+        toggle.innerHTML = "Show";
+    }
+}
+
+</script>
+
+</body>
+</html>
